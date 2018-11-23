@@ -11,52 +11,91 @@
 import java.util.Scanner;
 
 public class Ruletka {
-    static Scanner scanner = new Scanner(System.in);
+
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        intProverka();
-        intRandom();
+        int number = intProverkaChisla(scanner, 1, 6);
+        System.out.println(number);
+
+        final int min1 = 1;
+        final int max1 = 6;
+        final int rnd = rnd(min1, max1);
+        System.out.println("Случайное число " + rnd);
+
+        resultat(number, rnd);
+        intSchetchik(number, rnd);
+
 
     }
 
-    public static int intProverka() {    // Проверка числа
-        System.out.println("Введите число от 1 до 6:");
+    public static int intProverkaChisla(Scanner scanner, int min, int max) {
+
         int num;
-//        int num = scanner.nextInt();
+        while (true) {
+            System.out.println("введите число от " + min + " до " + max);
+            try {
+                String stringNumbers = scanner.next();
+                num = Integer.valueOf(stringNumbers);
+            } catch (NumberFormatException e) {
+                System.out.println("вы ввели не число");
+                continue;
+            }
+            if (num < min || num > max) {
+                System.out.println("число не от " + min + " до " + max);
+                return intProverkaChisla(scanner, min, max);
 
-        if (scanner.hasNextInt()) {
-            num = scanner.nextInt();
-//        } else if (num == 1) {
-//            System.out.println("Вы ввели 1");
-//        } else if (num == 2) {
-//            System.out.println("Вы ввели 2");
-//        } else if (num == 3) {
-//            System.out.println("Вы ввели 3");
-//        } else if (num == 4) {
-//            System.out.println("Вы ввели 4");
-//        } else if (num == 5) {
-//            System.out.println("Вы ввели 5");
-//        } else if (num == 6) {
-//            System.out.println("Вы ввели 6");
-        } else {
-            System.out.println("Вы допустили ошибку при вводе числа. Попробуйте еще раз.");
-            scanner.next();
-            num = intProverka();
+            }
+            return num;
         }
-        return num;
     }
 
-    public static void intRandom() {                       // Генерация 1,2,3 числа
-        int a1 = 1;
-        int b1 = 6;
-        int number1 = a1 + (int) (Math.random() * b1);
-        System.out.println("1-ое случайное число: " + number1);
-        int number2 = a1 + (int) (Math.random() * b1);
-        System.out.println("2-ое случайное число: " + number2);
-        int number3 = a1 + (int) (Math.random() * b1);
-        System.out.println("3-е случайное число: " + number3);
+    public static int rnd(int min1, int max1) {
+        max1 -= min1;
+        return (int) (Math.random() * ++max1) + min1;
+
+    }
+
+    public static int resultat(int rnd, int number) {
+        if (number == rnd) {
+            System.out.println("Вы програли ");
+        } else if (number != rnd) {
+            System.out.println("Вы выйграли ");
+        }
+
+
+        return number;
+    }
+
+    public static int intSchetchik(int number, int rnd) {
+        while (true) {
+            int nadbavka=100;
+            for (int i = 1; i <= nadbavka; i++)
+                System.out.println("Ваш счет: " + i);
+
+            int Schetchik = scanner.nextInt();
+            if (number != rnd) {
+                System.out.println("+ 1 очко " + nadbavka);
+
+                return Schetchik;
+
+
+            } else if (number == rnd) {
+                System.out.println("Ваш счет: " + nadbavka);
+
+
+            }
+            return Schetchik;
+        }
+
     }
 
 }
+
+
+
+
+
+
 
 
